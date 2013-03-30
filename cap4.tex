@@ -1,0 +1,44 @@
+\pagestyle{empty}
+\cleardoublepage
+\pagestyle{fancy}
+\chapter{Lógicas Probabilísticas}\label{cap4}
+
+Várias aplicações da Ciência da Computação necessitam da habilidade de raciocinar com informções incertas. Por exemplo, precisamos analisar programas probabilísticos, raciocinar sobre suposições probabilísticas da entrada e, em sistemas especialistas, várias regras obtidas dos especialistas são incertas. Já que as lógicas clássicas são úteis apenas nos casos onde temos certeza do conhecimento, várias propostas de extensão de lógicas para lidar com incertezas foram feitas. Algumas dessas propostas utilizaram a teoria da probabilidade para estender a lógica clássica e obter lógicas para poder lidar com informações incertas. Algumas dessas abordagens podem ser encontradas em \cite{fagin88, nilsson93, nilsson86, Halpern90ananalysis, Abadi1989, Fagin1994}. Abordagens mais recentes que utilizam apenas fragmentos da lógica de primeira ordem pode ser encontrados em \cite{Lukasiewicz08, LutzSchoder10, DurigStuder05, Cozman08LPP, TaoWHL07}.
+Neste trabalho vamos mostrar duas abordagens diferentes. Elas foram introduzidas em \cite{Bacchus1991, Bacchus90} e foram analisadas em \cite{Halpern90ananalysis, Abadi1989}. Essas lógicas diferem basicamente no modo como a probabilidade é inserida.
+Na primeira a probabilidade é inserida no domínio da estrutura, ou seja, cada elemento do domínio tem uma probabilidade associada. Na segunda temos um conjunto de estados ou mundos possíveis e cada um tem uma probabilidade.
+
+\section{Probabilidade no Domínio}
+Aqui temos a linguagem usual da Lógica de Primeira Ordem adicionada de uma função $w$ sobre as fórmulas. Seja $\phi$ uma fórmula na lógica, a fórmula $w_x(\phi) \ge \frac{1}{2}$ significa que a probabilidade de um $x$ aleatório satisfazer $\phi$ é maior ou igual a $\frac{1}{2}$. Para entender a intuição dessa fórmula suponha $\phi = Son(x, y)$. $w_x(\phi)$ representa a probabilidade de um elemento aleatório $x$ do domínio ser filho de $y$. A fórmula $w_y(\phi)$ descreve a probabilidade de $x$ ser filho de um $y$ aleatório. Também podemos ter a fórmula $w_{\tuple{x, y}}(\phi)$ que representa a probabilidade de um par de indivíduos $(x, y)$ terem  propriedade de $x$ ser filho de $y$.
+
+Para formalizar essa intuição da função $w$ precisamos usar uma linguagem poli-sortida. Vamos usar uma estrutura poli-sortida $\mathcal{P} = \langle A, \mathbb{R},  R_{1}^{A}, ..., R_{r}^{A}, c_1^{A}, ..., c_s^{A}$, $ >^{\mathbb{R}}, +^{\mathbb{R}}, *^{\mathbb{R}}, 0^{\mathbb{R}}, 1^{\mathbb{R}}, \mu \rangle$, onde o domínio $A$ e as relações sobre e constantes sobre $A$ fazem parte do domínio que queremos representar. Já o segundo domínio $\mathbb{R}$ e as relações, funções e constantes sobre ele representam as probabilidades. O $\mu$ é uma função de probabilidade discreta sobre $A$, ou seja, $\mu : A \to [0, 1]$ tal que $\sum_{a \in A}\mu(a) = 1$. Para qualquer subconjunto $S \subseteq A$ fazemos $\mu(S) = \sum_{s \in S}\mu(s)$. Agora podemos definir a função $\mu^n$ para atribuir uma probabilidade para $n$ elementos do domínio, ou seja, $\mu^n(a_1, ... a_n) = \mu(a_1)*...*\mu(a_n)$.
+
+Na linguagem, além do usual da linguagem de primeira ordem, temos dois tipos de variáveis: $VAR_A = \{x, y, z, ...\}$ e $VAR_{\mathbb{R}} = \{r_0, r_1, ... \}$, o primeiro conjunto de variáveis correspondem ao domínio $A$ e o segundo conjunto para os reais. Os termos do domínio são formados da maneira usual. O termos dos reais são variáveis em $VAR_{\mathbb{R}}$, as constantes 0, 1 e termos de probabilidade da forma $w_{x_1,...,x_n}(\phi)$. Além disso esses termos dos reais são fechados sobre as funções restritas aos reais. 
+
+As fórmulas convencionais são formadas da maneira padrão restritas aos termos do domínio. Se $t_1$ e $t_2$ são dois termos dos reais então $t_1 > t_2$ e $t_1 = t_2$ também são fórmulas. 
+
+A noção de interpretação e satisfação é feita como o usual. Uma interpretação é uma estrutura poli-sortida e uma função de assinalamento $\beta$ que mapeia elementos de $VAR_A$ em $A$ e elementos de $VAR_{\mathbb{R}}$ em $\mathbb{R}$.
+A interpretação de termos do domínio também é feita da forma usual mas com a restrição de mapeamento em $A$. Para o caso dos termos dos reais, a diferença está nas probabilidades das fórmulas que é feita da seguinte forma:
+\begin{center}
+$(\mathcal{P}, \beta)(w_{\tuple{x_1,..., x_n}}(\phi)) = \mu^n(\{a_1, ..., a_n  \} : (\mathcal{P}, \beta[a_1/x_1, ..., a_n/x_n]) \models \phi)$. 
+\end{center} 
+
+A satisfação é feita de forma semelhante à da lógica de primeira ordem clássica.
+
+\section{Probabilidade nos Mundos Possíveis}
+Aqui, no lugar de inserirmos na linguagem $w_{\tuple{x_1,..., x_n}}(\phi)$ vamos colocar apenas $w(\phi)$ significando a probabilidade de $\phi$. Isso acontece pois não existe mais uma probabilidade associada aos elementos do domínio $x_1,..., x_n$. 
+
+Agora temos uma distribuição de probabilidade em um conjunto de mundos possíveis onde em alguns desses mundos temos que a fórmula $\phi$ é verdade. A probabilidade da fórmula vai ser exatamente a probabilidade dos estados onde a fórmula é verdadeira.
+
+Para formalizar, agora a estrutura é igual a anterior adicionada de um conjunto de estados, ou seja, $\mathcal{P}$ $= \langle A, S, \mathbb{R},  R_{1}^{A,s_1}, ..., R_{r}^{A,s_1}$, $ ..., R_{1}^{A,s_n}, ..., R_{r}^{A,s_n}$ $, c_1^{A, s_1}, ..., c_s^{A, s_1}, ..., c_1^{A, s_n}, ..., c_s^{A, s_n}$ $, >^{\mathbb{R}}, +^{\mathbb{R}}, *^{\mathbb{R}}, 0^{\mathbb{R}}, 1^{\mathbb{R}}, \mu \rangle$, onde $A$ é o domínio, $S$ é o conjunto de estados ou mundos possíveis, para cada estado $s \in S$ temos relações $R_i$ de aridade $a_i$ e constantes $c_i$. $\mu$ é uma função de probabilidade discreta em $S$. 
+
+Uma interpretação agora é uma tripla $(\mathcal{P}, s, \beta)$, ou seja, agora é necessário saber qual estado está sendo avaliado. A interpretação dos termos é feita da maneira anterior mas agora cada estado pode levar à uma interepretação diferente dos termos. A interpretação da probabilidade de uma fórmula $w(\phi)$ é feita da seguinte maneira: 
+\begin{center}
+$(\mathcal{P}, s, \beta)(w(\phi)) = \mu(e \in S : (\mathcal{P}, e, \beta) \models \phi)$
+\end{center}
+
+A noção de satisfação é feita como o usual mas levando em conta o estado. Como exemplo vamos mostrar o caso em que uma interpretação $\mathcal{I} = (\mathcal{P}, s, \beta)$ satisfaz a fórmula atômica:
+\begin{center}
+$\mathcal{I} \models P(t_1, ..., t_n)$ se e somente se $\tuple{\mathcal{I}(t_1), ..., \mathcal{I}(t_n)} \in P^{A, s}$
+\end{center}
+
+Agora que mostramos essas duas lógicas probabilísticas, no próximo capítulo vamos comentar o que pretendemos fazer com elas e com as definições e resultados dos capítulos anteriores.

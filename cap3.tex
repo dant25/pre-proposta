@@ -1,0 +1,118 @@
+\pagestyle{empty}
+\cleardoublepage
+\pagestyle{fancy}
+
+\chapter{Complexidade Descritiva}\label{cap3}
+
+Complexidade Descritiva é uma área da Teoria dos Modelos Finitos na qual lógicas são utilizadas para caracterizar classes de complexidade. Queremos entender como a expressividade de uma lógica está relacionada com as propriedades de um algoritmo. Enquanto a complexidade computacional está interessada no custo de recursos computacionais como tempo e espaço para decidir se a entrada tem uma certa propriedade, a Complexidade Descritiva se preocupa com os recursos lógicos para definir esta propriedade. 
+
+Esta conexão entre complexidade e lógica permite que resultados possam ser facilmente transferidos de uma área para a outra, possibilitando novas abordagens de prova para as duas áreas. Por exemplo, se provarmos que uma mesma lógica caracteriza as classes de complexidade $\textbf{P}$ e $\textbf{NP}$ então temos uma prova de que $\textbf{P}$ = $\textbf{NP}$.
+
+Vamos iniciar o estudo de Teoria da Complexidade Descritiva fazendo uma revisão de lógica.
+A maioria das definições e resultados mostrados a seguir podem ser encontrados em \cite{immerman99}.
+Primeiro temos que introduzir a linguagem da lógica. Um vocabulário relacional finito
+\begin{center}
+$\tau = \tuple{R_{1}^{a_1}, R_{2}^{a_2}, ..., R_{r}^{a_r}, c_1, c_2, ..., c_s}$
+\end{center} 
+é uma tupla finita de símbolos relacionais $R_i$ de aridade $a_i$ e símbolos de constantes. Um exemplo de vocabulário é $\tau_g = \tuple{E^2, f, t}$ que representa grafos com um vértice fonte e um terminal. 
+Uma estrutura $\mathcal{A}$ com vocabulário $\tau$ é uma tupla
+\begin{center}
+$\mathcal{A} = \tuple{A, R_{1}^{\mathcal{A}}, R_{2}^{\mathcal{A}}, ..., R_{r}^{\mathcal{A}}, c_1^{\mathcal{A}}, c_2^{\mathcal{A}}, ..., c_s^{\mathcal{A}}}$
+\end{center} 
+que consiste de um universo não vazio $A$, o domínio de $\mathcal{A}$, de relações $R_i^{\mathcal{A}}$ de aridade $a_i$ definidas em $A$ para todo símbolo relacional do vocabulário $\tau$, de elementos $c_i^{\mathcal{A}}$ do domínio $A$ para todo símbolo de constante em $\tau$. 
+Como exemplo temos que o grafo $\mathcal{G} = \tuple{V^{\mathcal{G}}, E^{\mathcal{G}}, 1, 3}$ definido por $V^{\mathcal{G}} = \{0, 1, 2, 3, 4 \}$ e $E^{\mathcal{G}} = \{(1, 2), (3, 0), (3, 1)$, $(3, 2), (3,4), (4, 0)\}$ é uma estrutura de vocabulário $\tau_g$ consistindo de uma grafo direcionado com dois vértices especificados $f$ e $t$.
+
+Estamos trabalhando com vocabulários e estruturas finitas pois os computadores só manipulam dados finitos tanto na entrada, como na execução e na saída de um programa. Como vamos usar a lógica para representar os problemas das classes de complexidade computacional precisamos apenas das estruturas finitas. Nós definimos $STRUC[\tau]$ como sendo o conjunto de todas as estruturas finitas com vocabulário $\tau$.
+Para qualquer vocabulário $\tau$ definimos a linguagem de primeira ordem $\mathcal{L}(\tau)$ consistindo do conjunto de fórmulas como usualmente definido em \cite{ebbingaus} construídas a partir dos símbolos do vocabulário $\tau$, do símbolo de relação $=$, dos conectivos $\wedge$, $\neg$, do quantificador $\exists$ e das variáveis $VAR =\{x, y, z, ...\}$. Como exemplo temos que a fórmula $\exists z (x = z \vee E(x, z)) \wedge (z = y \vee E(z, y))$ pertence a $\mathcal{L}(\tau_g)$ e significa que existe um caminho de tamanho no máximo 2 entre os vértices $x$ e $y$.
+Seja $\phi \in \mathcal{L}(\tau)$, denotamos por $Modelos(\phi)$ o conjunto das estruturas de vocabulário $\tau$ que satisfazem a fórmula $\phi$. %Abaixo vamos introduzir uma relação de expressividade entre lógicas para poder comparar seu poder expressivo:
+%\begin{defi}
+% Sejam $\mathcal{L}_1$ e $\mathcal{L}_2$ duas lógicas.
+% \begin{enumerate}
+%   \item{$\mathcal{L}_1$ $\le$ $\mathcal{L}_2$ se para todo vocabulário $\tau$ e toda sentença $\phi_1 \in \mathcal{L}_1(\tau)$ existir uma sentença $\phi_2 \in \mathcal{L}_2(\tau)$ tal que $Modelos(\phi_1) = Modelos(\phi_2)$}
+ %  \item{$\mathcal{L}_1$ $<$ $\mathcal{L}_2$ se $\mathcal{L}_1$ $\le$ $\mathcal{L}_2$ e não $\mathcal{L}_2$ $\le$ $\mathcal{L}_1$}
+  % \item{$\mathcal{L}_1$ $\equiv$ $\mathcal{L}_2$ se $\mathcal{L}_1$ $\le$ $\mathcal{L}_2$ e $\mathcal{L}_2$ $\le$ $\mathcal{L}_1$}
+ %\end{enumerate}
+%\end{defi}
+
+%Um exemplo de relação de expressivade entre lógicas é a que a lógica de segunda ordem é mais expressiva que a lógica de primeira ordem, ou seja, $FO < SO$. Agora vamos definir que propriedades as estruturas tem que ter para serem usadas em computação.
+%
+Quando usamos um computador para armazenar ou manipular uma estrutura, um grafo por exemplo, é codificado de alguma forma uma ordem entre os vértices. Como queremos usar a lógica para discutir sobre computação é necessário assumir uma ordem no domínio da estrutura. Quando codificamos uma entrada de um programa como uma string existe uma ordem nessa string. Sempre que nos referirmos a um vocabulário $\tau$ estaremos assumindo que os símbolos $\le$, $suc$, $min$, $max$ se referem à uma ordem total no domínio, à relação de sucessor e ao menor e maior elementos de um domínio, repectivamente. Para uma estrutura com domínio $A$ tal que $|A| = n$, podemos assumir que $A = \{0, 1, 2, ..., n-1\}$ e que a relação total de ordem $\le$ é a ordem dos naturais.
+
+%consultas em lógica
+Agora vamos definir as consultas. Elas vão ser usadas como paradigma fundamental de computação. As consultas são semelhantes às consultas de um banco de dados. As estruturas relacionais vão ser os bancos de dados que são as entradas das consultas. Da mesma forma que em banco de dados, as consultas vão retornar uma outra estrutura relacional como resultado da consulta.
+\begin{defi}
+Uma consulta $Q$ é um mapeamento $Q : STRUC[\sigma] \to STRUC[\tau]$ das estruturas finitas de um vocabulário $\sigma$ para estruturas de outro vocabulário $\tau$. Uma consulta booleana $Q_b$ é uma mapeamento $Q_b = STRUC[\sigma] \to \{0, 1\}$. Uma consulta booleana pode ser pensado como um subconjunto de $STRUC[\sigma]$, ou seja, o conjunto de estruturas $\mathcal{A}$ para as quais $Q_b(\mathcal{A}) = 1$.
+\end{defi}
+
+As consultas de primeira ordem são os tipos mais básicos de consulta. Por exemplo, qualquer fórmula sem variáveis livres (sentença) de primeira ordem $\phi \in \mathcal{L}(\tau)$ define uma consulta booleana $Q_{\phi}$ como vamos verificar na definição abaixo: 
+
+\begin{defi}
+Seja uma sentença $\phi \in \mathcal{L}(\tau)$. A consulta $Q_{\phi}$ é uma consulta boolena 
+sobre o conjunto de estruturas $STRUC[\tau]$ onde $Q_{\phi}(\mathcal{A}) = 1$ se e somente se $\mathcal{A} \models \phi$.
+\end{defi}
+
+Como os problemas de decisão são o padrão para definir classes de complexidades, as consultas booleanas terão um papel central.
+
+\begin{exem}
+Seja o vocabulário $\tau_g$ dos grafos e a sentença $phi = \forall x \exists y \exists z (y \ne z \wedge E(x, y) \wedge E(x, z) \wedge \forall w (E(x, w) \to (w = y \vee w = z)))$ em $FO$. Essa sentença define a consulta booleana $Q_\phi : STRUC[\tau_g] \to \{0, 1\}$ de forma que $Q_\phi(\mathcal{G}) = 1$ se e somente se $\mathcal{G}$ for um grafo em que todo vértice tem exatamente duas areas saindo dele.
+\end{exem}
+
+As classes de complexidade são definidas como conjuntos de linguagens decididas por máquinas de Turing. Como na Complexidade Descritiva queremos relacionar consulta booleanas com máquinas de Turing precisamos codificar as estruturas das consultas como strings.
+
+\begin{defi}
+Considere o vocabulário relacional $\tau = \tuple{R_{1}^{a_1}, R_{2}^{a_2}, ..., R_{r}^{a_r}, c_1, c_2, ..., c_s}$ e $\mathcal{A}$ uma estrutura ordenada de vocabulário $\tau$ e domínio de cardinalidade $n$. Vamos codificar cada relação $R_i^{\mathcal{A}}$ como uma string binária $bin^{\mathcal{A}}(R_i)$ de tamanho $n^{a_i}$ onde $1$ na $k$-ésima posição indica que a $k$-ésima tupla da ordem lexicográfica pertence à relação. No caso das constantes vamos codificar em $bin^{\mathcal{A}}(c_j)$ a codificação em binário do elemento $c^{\mathcal{A}}_j$. A codificação binária da estrutura $\mathcal{A}$ é a concatenação da codificação de cada relação e constante, ou seja:
+\begin{center}
+$bin(\mathcal{A}) = bin^{\mathcal{A}}(R_1)...bin^{\mathcal{A}}(R_r)bin^{\mathcal{A}}(c_1)...bin^{\mathcal{A}}(c_s)$.
+\end{center} 
+\end{defi}
+
+Usando essa codificação temos uma forma de relacionar consultas booleanas com máquinas de Turing. A próxima definição usa dessa codificação para dizer quando uma máquina de Turing computa uma consulta.
+
+\begin{defi}
+Seja $Q : STRUC[\tau] \to STRUC[\sigma]$ uma consulta e $M$ uma máquina de Turing. Dizemos que $M$ computa a consulta $Q$ se para toda estrutura $\mathcal{A} \in STRUC[\tau]$ temos que $M(bin(\mathcal{A})) = bin(Q(\mathcal{A}))$.
+\end{defi}
+
+Veja que a definição acima também funcionaria para o caso de consultas booleanas. Basta fazer $bin(1) = yes$ e $bin(0) = no$. Com isso, temos uma relação entre máquinas de Turing e consultas. Como vimos no capítulo anterior, máquinas de Turing decidem linguagens que definem classes de complexidade. Então agora podemos relacionar consultas com classes de complexidade.
+Abaixo vamos definir quando uma consulta pertence à uma classe de complexidade computacional.
+
+\begin{defi}
+Seja $Q_b$ uma consulta booleana, $M$ a máquina de Turing que computa $Q_b$, $\tau$ um vocabulário e $\mathcal{C}$ uma classe de complexidade computacional. A consulta $Q_b$ está em $\mathcal{C}$ se a linguagem $L = \{ bin(\mathcal{A}) | \mathcal{A} \in STRUC[\tau]$ e $M(bin(\mathcal{A})) = yes\}$ pertence à $\mathcal{C}$.
+\end{defi}
+
+Para uma linguagem pertencer à uma classe de complexidade deve existir uma máquina de Turing que decida a linguagem e que execute em tempo ou espaço determinados pela classe. Isso e a definição anterior nos levam à uma definição alternativa da pertinência de uma consulta à uma classe. 
+
+\begin{defi}
+Seja $Q$ uma consulta e $\mathcal{C}$ uma classe de complexidade. Se existir uma máquina de Turing que computa $Q$ com tempo e espaço limitados pela classe então $Q$ pertence à $\mathcal{C}$.
+\end{defi}
+
+Agora que definimos o relacionamento entre consultas e classes de complexidade computacional e como cada fórmula de uma lógica define uma consulta booleana também podemos relacionar uma lógica com uma classe de complexidade.
+
+\begin{defi}
+[$\mathcal{L}$ está em $\mathcal{C}$] Seja $\mathcal{L}$ uma lógica e $\mathcal{C}$ uma classe de complexidade computacional. A lógica $\mathcal{L}$ está em $\mathcal{C}$ se para todo vocabulário $\tau$ e sentença $\phi \in \mathcal{L}(\tau)$ a consulta booleana $Q_{\phi}$ está em $\mathcal{C}$.
+\end{defi}
+ 
+Agora podemos definir o que significa uma lógica $\mathcal{L}$ caracterizar uma classe de complexidade computacional $\mathcal{C}$.
+
+\begin{defi}
+Seja $\mathcal{L}$ uma lógica e $\mathcal{C}$ uma classe de complexidade computacional. $\mathcal{L}$ captura $\mathcal{C}$ se $\mathcal{L}$  está em $\mathcal{C}$ e se para toda consulta boolena $Q_b$ que está na classe de complexidade $\mathcal{C}$ existe uma sentença $\phi_{Q_b} \in \mathcal{L}$ talque $\mathcal{A} \models \phi_{Q_b}$ se e somente se $Q_b(\mathcal{A}) = 1$.
+\end{defi}
+
+Abaixo vamos enunciar dois teoremas e comentar a intuição deles a partir das definições que acabamos de mostrar.
+
+\begin{teo}
+$FO \subseteq L$. O conjunto de consultas booleanas de primeira ordem está contido no conjunto de consultas computáveis em espaço logarítmico em uma máquina de Turing determinística \cite{immerman99}.
+\end{teo}
+
+O teorema enuncia que uma lógica está em uma classe de complexidade computacional. Usando essa definição e a definição alternativa de uma consulta pertencer à uma classe de complexidade podemos provar o teorema construíndo uma máquina de Turing espaço logarítmica que computa qualquer consulta booleana definida em primeira ordem. Seja $\phi$ uma sentença de primeira ordem sem quantificadores. Como $\phi$ é uma combinação booleana de fórmulas atômicas basta olhar a codificação para verificar se a estrutura satisfaz a fórmula. Suponha que para uma fórmula e uma constante qualquer com $n - 1$ quantificadores $\psi(c) = Q_2x_2...Q_nx_n\phi$ existe uma máquina de Turing espaço logarítmica $M_0$ que decide se uma estrutura de entrada satisfaz a fórmula. Seja agora a fórmula $\exists x \psi(x)$ trocando a constante que ocorria em $\psi$ por um variável livre $x$. Podemos construir uma máquina espaço logarítmica $M$ que tenta todos os valores possíveis de $x$ trocando-o por uma nova constante e executa a máquina $M_0$. Se para algum dos valores a máquina $M_0$ chega em estado de aceitação então a máquina $M$ aceita, caso contrário rejeita. No caso da fórmula $\forall x \psi(x)$ podemos fazer parecido mas para a máquina $M$ aceitar, todos os valores substituídos por $x$ têm que ser aceitos em $M_0$.
+
+A prova do teorema nos dá um algoritmo (máquina de Turing) para computar a checagem de modelo da lógica de primeira ordem. Se quisermos saber se uma fórmula é satisfeita em uma estrutura basta usar a codificação $bin$ para a estrutura e máquina de Turing definida na prova.
+O próximo teorema foi provado na tese de Doutorado de Fagin em \cite{fagin1973}.
+Foi o teorema que deu início à área da Complexidade Descritiva.
+
+\begin{teo}
+$\exists SO = NP$. O conjunto de consultas booleanas definidas em segunda ordem é igual ao conjunto de consultas computáveis em tempo polinomial em uma máquina de Turing não-determinística. Ou seja, a lógica $\exists SO$ caracteriza a classe de complexidade $NP$.
+\end{teo}
+
+Para esse teorema vamos comentar apenas sobre a volta, ou seja, que se uma consulta pertence à classe de complexidade $NP$ então ela pertence à lógica existencial de segunda ordem. A idéia da prova é construir uma fórmula que simule a execução da máquina de Turing polinomial não determinística que computa a consulta que pertence à $NP$.
+
+%Teoremas principais da Complexidade Descritiva e importancia dos resultados
