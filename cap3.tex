@@ -4,21 +4,27 @@
 
 \chapter{Geração de Malhas}\label{cap3}
 
-Nesse capítulo, serão apresentadas técnicas de geração de malhas bidimensionais, algumas sequenciais, outras em paralelo. As técnicas aqui discutidas enquadram-se em três categorias:
+Nesse capítulo, serão apresentadas as técnicas de geração de malhas bidimensionais mais conhecidas atualmente. Existem diversos algoritmos para geração de malhas, porém todos eles podem ser enquadrados em três categorias que iremmos descrever a seguir:
 
 \begin{itemize}
-  \item Avanço de fronteira, onde a malha deve ser criada a partir da entrada que forma o contorno da região;
+  \item Avanço de fronteira: a malha deve ser gerada a partir da borda da região;
 
-  \item Delaunay, onde tenta-se maximizar o menor ângulo dos triângulos gerados para um dado conjunto de pontos;
+  \item Delaunay: procura-se maximizar o menor ângulo dos triângulos gerados para um dado conjunto de pontos;
 
-  \item Arbitrária, que são os outros tipos de malhas;
+  \item Arbitrária: para todos os outros tipos de malhas;
 \end{itemize}
 
 \section{Avanço de fronteira}
 
-Os algoritmos de avanço de fronteira partem de um contorno especificado da região a ser preenchida (fig.~\ref{fig:imagem7}a). Este contorno é chamado de fronteira inicial ou borda, os elementos são gerados por vez a partir dessa fronteira. A medida que os polígonos são gerados, a fronteira é atualizada, sempre removendo ou adicionando elementos de fronteira. O algoritmo termina quando não há mais fronteira, indicando que a região foi totalmente preenchida, ou quando não é possível gerar mais nenhum elemento mesmo com fronteira, indicando que o algoritmo falhou.
+Este é um dos métodos mais populares de geração de malhas e consiste em criar os elementos no interior do domínio progressivamente a partir de um contorno especificando da região a ser preenchida (fig.~\ref{fig:imagem7}a). Este contorno é chamado de fronteira inicial ou borda, os elementos são gerados a partir dessa fronteira dada como entrada. Uma fronteira bidimensional é formada por um conjunto de arestas.
 
-Uma fronteira bidimensional é formada por um conjunto de arestas. Essa técnica geralmente faz uso de pontos de Steiner, ou seja, insere novos pontos, que não pertencem à entrada, esse pontos criados irão pertencer aos elementos gerados. Um algoritmo nessa categoria procede da seguinte forma, no caso 2D triangular (fig.~\ref{fig:imagem7}b), enquanto houver arestas na fronteira:
+À medida em que o algoritmo progride, a fronteira avança em direção ao interior, sempre removendo ou adicionando elementos de fronteira até que todo o domínio seja preenchido. O algoritmo chega ao fim quando não há mais fronteira, ou seja, o domínio foi totalmente triangularizado. 
+
+Pode ocorrer do algoritmo não conseguir mais gerar elementos para uma determinada fronteira, isso indica que o algoritmo falhou. O caso de falha ocorre quando todos os possíveis elementos a serem criados se sobrepõe um elemento já existente. Por a importancia de verificar se um elemento criado não sobrepõe um elemento já existente. Os casos de falha geralmente acontecem em modelos tridimensionais.
+
+Para gerar os novos triângulo no interior do domínio é necessário criar novo pontos que não pertencem à entrada, em geral é utilizados os pontos de Steiner para isso.
+
+Enquanto houver arestas na fronteira um algoritmo nessa categoria irá proceded da seguinte forma no caso 2D (fig.~\ref{fig:imagem7}):
  
  \begin{enumerate}
 \item{ Remova uma aresta da fronteira, a aresta base (fig.~\ref{fig:imagem7}b)}
@@ -33,14 +39,10 @@ Uma fronteira bidimensional é formada por um conjunto de arestas. Essa técnica
  \begin{figure}[htbp]
      \centering
      \includegraphics[width=1\textwidth]{imagem7}
-     \caption{Avanço de fronteira.}
+     \caption{Avanço de fronteira. \cite{bib:Freitas10}} 
      \label{fig:imagem7}
  \end{figure}
 
-Os algoritmos de avanço de fronteira têm facilidade em tratar regiões descontínuas, ou por conterem buracos, ou por serem regiões separadas, uma vez que a fronteira é sempre respeitada. Além disso, os elementos próximos à fronteira são, geralmente, de boa qualidade, provendo estabilidade e precisão na aplicação de métodos numéricos (como os métodos dos elementos finitos) sobre a malha gerada.
+ Pelo fato da fronteira ser sempre respeitada, os algoritmos de avanço de fronteira têm facilidade em tratar regiões descontínuas, ou por conterem buracos, ou por serem regiões separadas. Como os elementos mais próximos da borda são gerados primeiro, eles irão ter em geral uma boa qualidade. A boa qualidade da malha gerada provem estabilidade e precisão na aplicação de métodos numéricos (como os métodos dos elementos finitos).
 
-Entretanto, em alguns casos os elementos mais internos à malha nem sempre são de boa qualidade, pois a região torna-se menor a medida que a fronteira avança. Para tratar esses casos, geralmente uma técnica de suavização ou otimização é aplicada na malha resultante do algoritmo. Existem, ainda, alguns casos onde o algoritmo falha em gerar a malha, geralmente em casos tridimensionais.
-
-
-
-
+Porém, nem sempre todos os elementos gerados terão boa qualidade. Ao contrário dos elementos mais próximos da borda, os elementos mais internos à malha nem sempre teão boa qualidade devido à região torna-se menor a medida que a fronteira avança. Geralmente uma técnica de suavização ou otimização é aplicada na malha resultante do algoritmo para tratar esses casos.
