@@ -20,7 +20,7 @@ Este é um dos métodos mais populares de geração de malhas e consiste em cria
 
 À medida em que o algoritmo progride, a fronteira avança em direção ao interior, sempre removendo ou adicionando elementos de fronteira até que todo o domínio seja preenchido. O algoritmo chega ao fim quando não há mais fronteira, ou seja, o domínio foi totalmente triangularizado. 
 
-Pode ocorrer do algoritmo não conseguir mais gerar elementos para uma determinada fronteira, isso indica que o algoritmo falhou. O caso de falha ocorre quando todos os possíveis elementos a serem criados se sobrepõe um elemento já existente. Por a importancia de verificar se um elemento criado não sobrepõe um elemento já existente. Os casos de falha geralmente acontecem em modelos tridimensionais.
+Pode ocorrer do algoritmo não conseguir mais gerar elementos para uma determinada fronteira, isso indica que o algoritmo falhou. O caso de falha ocorre quando todos os possíveis elementos a serem criados se sobrepõe um elemento já existente. Por isso a importância de verificar se um elemento criado não sobrepõe um elemento já existente. Os casos de falha geralmente acontecem em modelos tridimensionais.
 
 Para gerar os novos triângulo no interior do domínio é necessário criar novo pontos que não pertencem à entrada, em geral é utilizados os pontos de Steiner para isso.
 
