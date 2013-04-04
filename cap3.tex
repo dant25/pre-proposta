@@ -73,3 +73,8 @@ Existem dois tipos de algoritmos de Delaunay. No primeiro tipo, encontra-se uma 
 
  Dependendo da disposição dos pontos da entrada a triangulação final pode não têr boa qualidade, gerando instabilidade em métodos numéricos. Uma alternativa para melhorar essa malha é fazer refinamentos e otimizações, que fazem uso de pontos de Steiner, são utilizados para se melhorar a qualidade da malha.
 
+\section{Arbitrária}
+
+Vamos definir as chamadas malhas arbitrárias aquelas que não se enquadrarem nem como avanço de fronteira nem como Delaunay. Essas malhas em geral são geradas por algoritmos de varredura ou algum outro método. 
+
+Outro uso que essas malhas possuem é na demonstrações de teoremas sobre malhas. O problema de ordenação de pontos pode ser reduzido ao problema de geração de malhas bidimensionais \cite{bib:CarvalhoFigueiredo91}. Prova-se por redução que pode ser gerado uma malha triangular a partir do fecho convexo de um conjunto de pontos em duas dimensões numa complexidade na ordem de (n log n).

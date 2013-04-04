@@ -126,44 +126,42 @@ Agradeço ao meu orientador, ao meu co-orientador, aos meus colaboradores, aos t
 
 \newpage
 
-\vspace*{10pt}
+%\vspace*{10pt}
 % Abstract
-\begin{center}
-  \emph{\begin{large}Resumo\end{large}}\label{resumo}
-\vspace{2pt}
-\end{center}
+%\begin{center}
+%  \emph{\begin{large}Resumo\end{large}}\label{resumo}
+%\vspace{2pt}
+%\end{center}
 % Pode parecer estranho, mas colocar uma frase por linha ajuda a organizar e reescrever o texto quando necessário.
 % Além disso, ajuda se você estiver comparando versões diferentes do mesmo texto.
 % Para separar parágrafos utilize uma linha em branco.
-\noindent
-Este trabalho descreve uma técnica de geração de malhas bidimensionais triangulares usando computadores paralelos com memória distribuída, baseado em um modelo de paralelismo mestre/escravos. Esta técnica utiliza uma \textit{quadtree} grosseira para decompor o domínio e um processo de avanço de fronteira serial para gerar a malha em cada subdomínio simultaneamente. Uma \textit{quadtree} fina é empregada neste trabalho para ajudar a estimar a carga de processamento associado a cada subdomínio. O nível de refinamento da \textit{quadtree} fina é usado para orientar a criação das arestas que são definidas pela discretização das células internas da \textit{quadtree} dos subdomínios. É mostrado que a técnica de estimativa de carga produz resultados que representam com precisão o número de elementos a serem gerados em cada subdomínio, levando a previsão de tempo de execução adequada e com um algoritmo bem balanceado. Quando comparado com o seu homólogo serial, a técnica em paralelo é muito mais rápida e muitas vezes apresenta um desempenho super-
-linear. As malhas geradas com a técnica em paralelo têm a mesma qualidade como as geradas serialmente, dentro de limites aceitáveis​​. 
-\par
-\vspace{1em}
-\noindent\textbf{Palavras-chave:} Malha triangular, Subdivisão de domínio, Quadtree
-\newpage
+%\noindent
+%Este trabalho descreve uma técnica de geração de malhas bidimensionais triangulares usando computadores paralelos com memória distribuída, baseado em um modelo de paralelismo mestre/escravos. Esta técnica utiliza uma \textit{quadtree} grosseira para decompor o domínio e um processo de avanço de fronteira serial para gerar a malha em cada subdomínio simultaneamente. Uma \textit{quadtree} fina é empregada neste trabalho para ajudar a estimar a carga de processamento associado a cada subdomínio. O nível de refinamento da \textit{quadtree} fina é usado para orientar a criação das arestas que são definidas pela discretização das células internas da \textit{quadtree} dos subdomínios. É mostrado que a técnica de estimativa de carga produz resultados que representam com precisão o número de elementos a serem gerados em cada subdomínio, levando a previsão de tempo de execução adequada e com um algoritmo bem balanceado. Quando comparado com o seu homólogo serial, a técnica em paralelo é muito mais rápida e muitas vezes apresenta um desempenho superlinear. As malhas geradas com a técnica em paralelo têm a mesma qualidade como as geradas serialmente, dentro de limites aceitáveis​​. 
+%\par
+%\vspace{1em}
+%\noindent\textbf{Palavras-chave:} Malha triangular, Subdivisão de domínio, Quadtree
+%\newpage
 
 % Criei a página do abstract na mão, por isso tem bem mais comandos do que o resumo acima, apesar de serem idênticas.
-\vspace*{10pt}
+%\vspace*{10pt}
 % Abstract
-\begin{center}
-  \emph{\begin{large}Abstract\end{large}}\label{abstract}
-\vspace{2pt}
-\end{center}
+%\begin{center}
+%  \emph{\begin{large}Abstract\end{large}}\label{abstract}
+%\vspace{2pt}
+%\end{center}
 
 % Selecionar a linguagem acerta os padrões de hifenação diferentes entre inglês e português.
-\selectlanguage{english}
-\noindent
-This work describes a technique for generating two-dimensional triangular meshes using parallel computers with distributed memory, based on a master/slaves parallelism model. This technique uses a coarse quadtree to decompose the domain and a serial advancing front procedure to generate the mesh in each subdomain concurrently. A finer quadtree is employed in this work to help estimate the processing load associated with each subdomain. The level of refinement of this finer quadtree is used to guide the creation of the edges that define the quadtree's inter-cell discretization of the subdomains. It is shown that the load estimation technique produces results that accurately represent the number of elements to be generated in each subdomain, leading to proper runtime prediction and to a well-balanced algorithm. When compared with its serial counterpart, the parallel technique is much faster and often presents a super-linear performance. The meshes generated with the parallel technique have the same quality as 
-those generated serially, within acceptable limits.
-\par
-\vspace{1em}
-\noindent\textbf{Keywords:} Triangular mesh, Domain subdivision, Quadtree
+%\selectlanguage{english}
+%\noindent
+%This work describes a technique for generating two-dimensional triangular meshes using parallel computers with distributed memory, based on a master/slaves parallelism model. This technique uses a coarse quadtree to decompose the domain and a serial advancing front procedure to generate the mesh in each subdomain concurrently. A finer quadtree is employed in this work to help estimate the processing load associated with each subdomain. The level of refinement of this finer quadtree is used to guide the creation of the edges that define the quadtree's inter-cell discretization of the subdomains. It is shown that the load estimation technique produces results that accurately represent the number of elements to be generated in each subdomain, leading to proper runtime prediction and to a well-balanced algorithm. When compared with its serial counterpart, the parallel technique is much faster and often presents a super-linear performance. The meshes generated with the parallel technique have the same quality as those generated serially, within acceptable limits.
+%\par
+%\vspace{1em}
+%\noindent\textbf{Keywords:} Triangular mesh, Domain subdivision, Quadtree
 
 % Voltando ao português...
-\selectlanguage{brazilian}
+%\selectlanguage{brazilian}
 
-\newpage
+%\newpage
 
 % Desabilitar protrusão para listas e índice
 \microtypesetup{protrusion=false}
@@ -172,7 +170,7 @@ those generated serially, within acceptable limits.
 \listoffigures
 
 % Lista de tabelas
-\listoftables
+%\listoftables
 
 % Abreviações
 % Para imprimir as abreviações siga as instruções em 
