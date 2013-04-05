@@ -4,7 +4,7 @@
 
 \chapter{Geração de Malhas}\label{cap3}
 
-Nesse capítulo, serão apresentadas as técnicas de geração de malhas bidimensionais mais conhecidas atualmente. Existem diversos algoritmos para geração de malhas, porém todos eles podem ser enquadrados em três categorias que iremmos descrever a seguir:
+Nesse capítulo, serão apresentadas as técnicas de geração de malhas bidimensionais mais conhecidas atualmente. Existem diversos algoritmos para geração de malhas, porém todos eles podem ser enquadrados em três categorias que iremos descrever a seguir:
 
 \begin{itemize}
   \item Avanço de fronteira: a malha deve ser gerada a partir da borda da região;
@@ -24,7 +24,7 @@ Pode ocorrer do algoritmo não conseguir mais gerar elementos para uma determina
 
 Para gerar os novos triângulo no interior do domínio é necessário criar novo pontos que não pertencem à entrada, em geral é utilizados os pontos de Steiner para isso.
 
-Enquanto houver arestas na fronteira um algoritmo nessa categoria irá proceded da seguinte forma no caso 2D (fig.~\ref{fig:imagem7}):
+Enquanto houver arestas na fronteira um algoritmo nessa categoria irá proceder da seguinte forma no caso 2D (fig.~\ref{fig:imagem7}):
  
  \begin{enumerate}
 \item{ Remova uma aresta da fronteira, a aresta base (fig.~\ref{fig:imagem7}b)}
@@ -45,7 +45,7 @@ Enquanto houver arestas na fronteira um algoritmo nessa categoria irá proceded 
 
  Pelo fato da fronteira ser sempre respeitada, os algoritmos de avanço de fronteira têm facilidade em tratar regiões descontínuas, ou por conterem buracos, ou por serem regiões separadas. Como os elementos mais próximos da borda são gerados primeiro, eles irão ter em geral uma boa qualidade. A boa qualidade da malha gerada provem estabilidade e precisão na aplicação de métodos numéricos (como os métodos dos elementos finitos).
 
-Porém, nem sempre todos os elementos gerados terão boa qualidade. Ao contrário dos elementos mais próximos da borda, os elementos mais internos à malha nem sempre teão boa qualidade devido à região torna-se menor a medida que a fronteira avança. Geralmente uma técnica de suavização ou otimização é aplicada na malha resultante do algoritmo para tratar esses casos.
+Porém, nem sempre todos os elementos gerados terão boa qualidade. Ao contrário dos elementos mais próximos da borda, os elementos mais internos à malha nem sempre terão boa qualidade devido à região torna-se menor a medida que a fronteira avança. Geralmente uma técnica de suavização ou otimização é aplicada na malha resultante do algoritmo para tratar esses casos.
 
 \section{Delaunay}
 
@@ -62,7 +62,7 @@ O critério de Delaunay para a formação dos triângulos é que não exista nen
 
 A malha gerada por Delaunay visa maximizar os ângulos internos dos triângulos gerados. Ou seja, dada uma aresta da triangulação de Delaunay, o ponto que forma o maior ângulo com essa aresta é o ponto que formará um triângulo de Delaunay com os outros 2 pontos desta aresta.
 
-Existem dois tipos de algoritmos de Delaunay. No primeiro tipo, encontra-se uma aresta que faz parte da triangulação, em geral é selecionada uma aresta que pertence ao fecho convexo como primeira aresta. A partir da primeira aresta é encontrado o ponto que formará um triângulo de Delaunay. Assim, com as novas arestas, encontra-se novos triângulos, em um algoritmo parecido com o de avanço de fronteira. No segundo tipo, a entrada é uma malha triangular não necessáriamente de Delaunay e se modifica essa malha (de apenas um subconjunto de pontos da entrada) pré-existente (Figura~\ref{fig:imagem9}).
+Existem dois tipos de algoritmos de Delaunay. No primeiro tipo, encontra-se uma aresta que faz parte da triangulação, em geral é selecionada uma aresta que pertence ao fecho convexo como primeira aresta. A partir da primeira aresta é encontrado o ponto que formará um triângulo de Delaunay. Assim, com as novas arestas, encontra-se novos triângulos, em um algoritmo parecido com o de avanço de fronteira. No segundo tipo, a entrada é uma malha triangular não necessariamente de Delaunay e se modifica essa malha (de apenas um subconjunto de pontos da entrada) pré-existente (Figura~\ref{fig:imagem9}).
 
  \begin{figure}[htbp]
      \centering
@@ -71,7 +71,7 @@ Existem dois tipos de algoritmos de Delaunay. No primeiro tipo, encontra-se uma 
      \label{fig:imagem9}
  \end{figure}
 
- Dependendo da disposição dos pontos da entrada a triangulação final pode não têr boa qualidade, gerando instabilidade em métodos numéricos. Uma alternativa para melhorar essa malha é fazer refinamentos e otimizações, que fazem uso de pontos de Steiner, são utilizados para se melhorar a qualidade da malha.
+ Dependendo da disposição dos pontos da entrada a triangulação final pode não ter boa qualidade, gerando instabilidade em métodos numéricos. Uma alternativa para melhorar essa malha é fazer refinamentos e otimizações, que fazem uso de pontos de Steiner, são utilizados para se melhorar a qualidade da malha.
 
 \section{Arbitrária}
 
