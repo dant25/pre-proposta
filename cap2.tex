@@ -7,7 +7,7 @@ Em Computação de Alto Desempenho é conhecido que para um bom algoritmo parale
 
 Além disso existe a preocupação com a alocação das tarefas entre os processadores levando em conta que ao final todos eles devem realizar uma quantidade similar de processamento. Isso significa que a carga foi devidamente balanceada entre os processadores.
 
-Nesse capítulo irei mostrar o que se tem feito nos últimos anos nessa área de subdivisão de domínios tentando focar nos pontos positivos e negativos de cada técnica que for apresentada.
+Nesse capítulo estarei mostrando o que se tem feito nos últimos anos nessa área de subdivisão de domínios tentando focar nos pontos positivos e negativos de cada técnica que for apresentada.
 
 
 %\section{Introdução}\label{cap2:intro}
@@ -15,7 +15,7 @@ Nesse capítulo irei mostrar o que se tem feito nos últimos anos nessa área de
 
 Em \cite{bib:Pirzadeh09} é descrito uma técnica baseada em Avanço de Fronteiras e Avanço de Camadas. Essa é uma técnica tridimensional mas pode ser adaptada para uma versão bidimensional.
 
-Primeiramente é gerada a malha de superfície nos pontos dados como entrada, logo em seguida é feita uma estimativa de carga nos subdomínios utilizando uma \textit{octree}. Se necessário, serão criados planos de partições que dividem o domínio em regiões com cargas aproximadamente iguais. 
+Primeiramente é gerada a malha de superfície nos pontos dados como entrada. Logo em seguida é feita uma estimativa de carga nos subdomínios utilizando uma \textit{octree}. Se necessário, serão criados planos de partições que dividem o domínio em regiões com cargas aproximadamente iguais. 
 
 As posições destes planos são definidos através do centro de densidade da malha. Esse centro indica onde a massa efetiva do sistema está concentrada.
 
@@ -32,7 +32,7 @@ Em seguida, são identificadas as faces que interceptam o plano de partição e 
 
 \section{Particionamento Baseado na Distância/Volume/Centro de Massa}
  
-Em \cite{bib:Ivanov06} fizeram um algoritmo baseado em Delaunay em que o posicionamento do plano de corte é baseado no centro de massa e na matriz de inércia. O plano de corte é um plano perpendicular a um eixo que segue uma das três definições:
+Em \cite{bib:Ivanov06} é feito um algoritmo baseado em Delaunay em que o posicionamento do plano de corte é baseado no centro de massa e na matriz de inércia. O plano de corte é um plano perpendicular a um eixo que segue uma das três definições:
 
 \begin{itemize}
   \item Planos criados são equidistantes;
@@ -42,9 +42,9 @@ Em \cite{bib:Ivanov06} fizeram um algoritmo baseado em Delaunay em que o posicio
   \item Passa pelo centro de massa;
 \end{itemize}
 
-A escolha de qual critério para criar os subdomínios vai depender da geometria da entrada. Dependendo da entrada um critério pode ser melhor que outro, qual escolher vai depender do conhecimento do usuário. Na imagem~\ref{fig:imagem2} as 3 formas de particionar são apresentadas.
+A escolha do critério para criar os subdomínios vai depender da geometria da entrada. Dependendo da entrada um critério pode ser melhor que outro, isso vai depender do conhecimento do usuário. Na imagem~\ref{fig:imagem2} as 3 formas de particionar são apresentadas.
 
-Após ter o plano de corte definido é feita uma suavização da seção de corte e depois a sua triangularização, logo após é realizada a geração da malha nos subdomínios. Um problema bem visível nesse método é que para se ter um bom plano de corte é preciso ter um modelo com uma geometria bem comportada (sem forma côncava, alongada ou afinada).
+Após ter o plano de corte definido é feita uma suavização da seção de corte e depois a sua triangularização. Logo após é realizada a geração da malha nos subdomínios. Um problema bem visível nesse método é que para se ter um bom plano de corte é preciso ter um modelo com uma geometria bem comportada (sem forma côncava, alongada ou afinada).
 
  \begin{figure}[htbp]
      \centering
@@ -53,7 +53,7 @@ Após ter o plano de corte definido é feita uma suavização da seção de cort
      \label{fig:imagem2}
  \end{figure}
 
-Uma solução parecida é a de \cite{bib:Lammer00}, que traça o plano de corte da mesma maneira porém em duas dimensões. Esse eixo é usado para dividir o domínio recursivamente. A partir do eixo, uma aresta é formada, e os valores nos seus pontos extremos são interpolados dos valores dados como entrada. Quando o número de subdomínios for igual ao número de processadores, uma malha de Delaunay é gerada em cada interior.
+Uma solução parecida é a de \cite{bib:Lammer00}, que traça o plano de corte da mesma maneira, porém em duas dimensões. Esse eixo é usado para dividir o domínio recursivamente. A partir do eixo, uma aresta é formada, e os valores nos seus pontos extremos são interpolados dos valores dados como entrada. Quando o número de subdomínios for igual ao número de processadores, uma malha de Delaunay é gerada em cada interior.
 
 \section{Particionamento Baseado em \textit{Octree}/\textit{Quadtree}}
 
@@ -61,14 +61,14 @@ Em \cite{bib:deCougny99}, a entrada do algoritmo é o contorno de um objeto. Cad
 
 Na técnica de \cite{bib:Lohner01}, é gerada uma \textit{octree} grosseira com relação ao contorno dado como entrada. Então, as células que contêm a parte da fronteira que gerará os menores elementos são identificadas. Assim, partes da malha, correspondentes a cada célula, são geradas simultaneamente por avanço de fronteira, de maneira que cada parte da malha gerada não possa cruzar as extremidades da célula que a contém. Então, cada octante sofre um pequeno deslocamento na diagonal com o intuito de gerar mais elementos. Esse deslocamento elimina quase todas as faces entre duas ou mais células e diminui o tamanho da fronteira para o próximo passo. Assim, a nova fronteira é encontrada, uma nova \textit{octree} é construída para ela, e o procedimento é repetido, até que não seja mais possível gerar malha.
 
-Em \cite{bib:Larwood03} apresenta uma técnica de decomposição de domínio que tem como entrada uma triangulação de borda. Para saber quais subdomínios devem ser divididos, o autor usa um critério baseado na quantidade de faces por subdomínio. A decomposição é feita recursivamente usando uma \textit{octree} caso seja tridimensional ou uma \textit{quadtree} caso seja bidimensional, verificando sempre se o número de faces de um subdomínio é menor do que o limite estipulado, e, enquanto a verificação for falsa, a decomposição irá ocorrer. A quantidade máxima de subdivisões está limitada por uma constante maior que o número de processadores disponíveis, isso evita a criação excessiva de partições e permite que um processador possa receber mais de uma tarefa ao longo da execução.
+Em \cite{bib:Larwood03} apresenta uma técnica de decomposição de domínio que tem como entrada uma triangulação de borda. Para saber quais subdomínios devem ser divididos, o autor usa um critério baseado na quantidade de faces por subdomínio. A decomposição é feita recursivamente usando uma \textit{octree} caso seja tridimensional ou uma \textit{quadtree} caso seja bidimensional, verificando sempre se o número de faces de um subdomínio é menor do que o limite estipulado, e, enquanto a verificação for falsa, a decomposição irá ocorrer. A quantidade máxima de subdivisões está limitada por uma constante maior que o número de processadores disponíveis. Isso evita a criação excessiva de partições e permite que um processador possa receber mais de uma tarefa ao longo da execução.
 
 Para evitar a criação de elementos ruins é feita uma verificação no corte, que é baseada no ângulo do vetor normal do plano de corte com a normal dos triângulos, de tal forma que o plano de corte não possa passar por triângulos com ângulo menor do que uma tolerância. Como o plano de corte é baseado na \textit{octree} se tridimensional ou na \textit{quadtree} se bidimensional, será necessário um deslocamento na mesma caso a verificação do corte falhe. A imagem~\ref{fig:imagem3} mostra um exemplo onde alguns planos de corte falham nos testes.
 
  \begin{figure}[htbp]
      \centering
      \includegraphics[width=0.9\textwidth]{imagem3}
-     \caption{Regiões de corte invalidas em cinza \cite{bib:Larwood03}.}
+     \caption{Regiões de corte inválidas em cinza \cite{bib:Larwood03}.}
      \label{fig:imagem3}
  \end{figure}
 
@@ -76,7 +76,7 @@ Para evitar a criação de elementos ruins é feita uma verificação no corte, 
 
 O Eixo Mediano(EM) é uma maneira de descrever a forma de um objecto. O EM é utilizado para garantir uma decomposição de domínio com separadores que formam bons ângulos entre eles e as bordas. 
 
-Em \cite{bib:Leonidas06}, apresenta-se uma técnica bidimensional que utiliza a triangularização de Delaunay por divisão e conquista para um conjunto de pontos dados como entrada. Primeiramente é feito uma triangulação da borda, essa triangulação é utilizada para a geração de um grafo ponderado, onde o peso das arestas serão iguais ao raio da circunferência circunscrita do triângulo que contém essa aresta. Em seguida é feito uma contração dessa grafo. 
+Em \cite{bib:Leonidas06}, apresenta-se uma técnica bidimensional que utiliza a triangularização de Delaunay por divisão e conquista para um conjunto de pontos dados como entrada. Primeiramente é feita uma triangulação da borda e essa triangulação é utilizada para a geração de um grafo ponderado, onde o peso das arestas serão iguais ao raio da circunferência circunscrita do triângulo que contém essa aresta. Em seguida é feito uma contração desse grafo. 
 
  \begin{figure}[htbp]
      \centering
@@ -91,9 +91,9 @@ Através do grafo formado os planos de corte serão posicionados e os subdomíni
 
 Em \cite{bib:Glut08}, é apresentado uma técnica para malhas tridimensionais. Essa é uma abordagem baseada na decomposição geométrica onde a entrada é uma malha de superfície. Aqui são apresentado duas técnicas baseadas na \textit{bounding box} gerada a partir da entrada.
 
-A seleção do separador do domínio deve garantir um custo de corte baixo, ou seja, encontrar e posicionar o plano de corte não pode ter um custo computacional alto. Além disse deve garantir um bom balanceamento de carga e minimizar os elementos conectados por múltiplos subdomínios.
+A seleção do separador do domínio deve garantir um custo de corte baixo, ou seja, encontrar e posicionar o plano de corte não pode ter um custo computacional alto. Além disso deve garantir um bom balanceamento de carga e minimizar os elementos conectados por múltiplos subdomínios.
 
-A primeira técnica é baseada na malha de superfície. Para o plano de corte ser criado é preciso a localização do contorno da malha de superfície e do separador. O contorno é então projetado no separador usando uma função 2D de controle espacial baseada no tamanho das arestas. Ver figura~\ref{fig:imagem5}.
+A primeira técnica é baseada na malha de superfície. Para o plano de corte ser criado são preciso a localização do contorno da malha de superfície e do separador. O contorno é então projetado no separador usando uma função 2D de controle espacial baseada no tamanho das arestas. Ver figura~\ref{fig:imagem5}.
 
  \begin{figure}[htbp]
      \centering
@@ -102,7 +102,7 @@ A primeira técnica é baseada na malha de superfície. Para o plano de corte se
      \label{fig:imagem5}
  \end{figure}
 
-A segunda técnica se baseia numa malha volumétrica grosseira. Primeiramente é feito a geração de uma malha 3D grosseira utilizando alguma função de controle espacial. O posicionamento do plano de corte é feito parecido com a técnica anterior sendo que será utilizado a malha volumétrica para a função espacial. Ver figura~\ref{fig:imagem6}.
+A segunda técnica se baseia numa malha volumétrica grosseira. Primeiramente é feita a geração de uma malha 3D grosseira utilizando alguma função de controle espacial. O posicionamento do plano de corte é feito parecido com a técnica anterior sendo que será utilizada a malha volumétrica para a função espacial. Ver figura~\ref{fig:imagem6}.
 
  \begin{figure}[htbp]
      \centering
@@ -111,5 +111,5 @@ A segunda técnica se baseia numa malha volumétrica grosseira. Primeiramente é
      \label{fig:imagem6}
  \end{figure}
 
-Essa técnica depende muito da geometria da entrada já que são utilizadas informações da \textit{bounding box} da entrada. Isso afeta diretamente a criação dos plano de corte e por consequência a malha gerada ao final.
+Essa técnica depende muito da geometria da entrada já que são utilizadas informações da \textit{bounding box} da entrada. Isso afeta diretamente a criação dos planos de corte e por consequência a malha gerada ao final.
 
