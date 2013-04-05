@@ -8,11 +8,11 @@
 \chapter{Introdução}\label{intro}
 É notável o crescente avanço do poder computacional dos computadores nos últimos anos. Já é comum inclusive computadores pessoais terem mais de um processador. Desenvolver programas ou algoritmos que não utilizam corretamente os recursos disponíveis nas máquinas resulta num tempo de execução maior do que se utilizado todos os recursos da máquina.
 
-O maior desafio atual é desenvolver técnicas que possuem boa escalabilidade, ou seja, ter um aumento no desempenho sob carga quando mais recursos forem disponíveis. Ao mesmo tempo buscamos obter resultados tão bons quanto os resultados do algoritmo sequencial.
+O maior desafio atual é desenvolver técnicas que possuam boa escalabilidade, ou seja, ter um aumento no desempenho sob carga quando mais recursos forem disponíveis. Ao mesmo tempo buscamos obter resultados tão bons quanto os resultados do algoritmo sequencial.
 
-Nosso trabalho está focado em malhas bidimensionais, mais precisamente triangulações. Essas malhas são bastante utilizada em diversas áreas e aplicações. Na engenharia é bastante utilizado em métodos de elementos finitos(MEF). Em computação gráfica é muito utilizado para a visualização e modelagem objetos e ambientes. Há usos também em  sistemas de informações geográficas e projetos assistidos por computadores para a modelagem de objetos industriais.
+Nosso trabalho está focado em malhas bidimensionais, mais precisamente triangulações. Essas malhas são bastante utilizadas em diversas áreas e aplicações. Na engenharia é bastante utilizado em métodos de elementos finitos(MEF). Em computação gráfica são muito utilizadas para a visualização e modelagem objetos e ambientes. Há usos também em  sistemas de informações geográficas e projetos assistidos por computadores para a modelagem de objetos industriais.
 
-A qualidade da malha gerada é bastante importante. Em MEFs por exemplo, a qualidade de dos elementos (os polígonos, em malhas bidimensionais) são de extrema importância pois a se malha tiver uma grande quantidade de elementos ruins, é possível que o MEF não convirja. Por necessitar de malhas bastante refinadas, é comum que MEFs usem malhas grandes, com milhões de elementos.
+A qualidade da malha gerada é bastante importante. Em MEFs por exemplo, a qualidade dos elementos (os polígonos, em malhas bidimensionais) são de extrema importância pois se a malha tiver uma grande quantidade de elementos ruins, é possível que o MEF não convirja. Por necessitar de malhas bastante refinadas, é comum que MEFs usem malhas grandes, com milhões de elementos.
 
 Em geração de malha para aplicações científicas é preciso ter uma boa técnica para garantir que os elementos gerados serão de boa qualidade, ou seja, no caso bidimensional que os triângulos sejam bons. Pode-se dizer que um triângulo é bom quando ele é quase equilátero, caso contrário, ele pode ser ruim (fig.~\ref{fig:imagem10}).
 

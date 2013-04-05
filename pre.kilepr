@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.1.0
-lastDocument=cap1.tex
+lastDocument=final.tex
 masterDocument=
 name=Pre
 pkg_extIsRegExp=false
@@ -98,30 +98,30 @@ ReadWrite=true
 
 [item:cap1.tex]
 archive=true
-column=164
+column=175
 encoding=UTF-8
 highlight=LaTeX
-line=12
+line=14
 mode=LaTeX
-open=true
+open=false
 order=0
 
 [item:cap2.tex]
 archive=true
-column=0
+column=72
 encoding=UTF-8
 highlight=LaTeX
-line=115
+line=113
 mode=LaTeX
 open=false
 order=0
 
 [item:cap3.tex]
 archive=true
-column=80
+column=207
 encoding=UTF-8
 highlight=LaTeX
-line=73
+line=51
 mode=LaTeX
 open=false
 order=0
@@ -181,10 +181,10 @@ archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
-line=5
+line=12
 mode=LaTeX
-open=false
-order=1
+open=true
+order=0
 
 [item:mestrado.tex]
 archive=true
@@ -198,10 +198,10 @@ order=0
 
 [item:mestre.bib]
 archive=true
-column=30
+column=22
 encoding=UTF-8
 highlight=BibTeX
-line=27
+line=614
 mode=BibTeX
 open=false
 order=1
@@ -237,26 +237,26 @@ open=false
 order=0
 
 [view-settings,view=0,item:cap1.tex]
-CursorColumn=164
-CursorLine=12
+CursorColumn=175
+CursorLine=14
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:cap2.tex]
-CursorColumn=0
-CursorLine=115
+CursorColumn=72
+CursorLine=113
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:cap3.tex]
-CursorColumn=80
-CursorLine=73
+CursorColumn=207
+CursorLine=51
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:final.tex]
 CursorColumn=0
-CursorLine=5
+CursorLine=12
 JumpList=
 ViMarks=
 
@@ -267,8 +267,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:mestre.bib]
-CursorColumn=30
-CursorLine=27
+CursorColumn=22
+CursorLine=614
 JumpList=
 ViMarks=
 

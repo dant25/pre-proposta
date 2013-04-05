@@ -22,9 +22,9 @@ Este é um dos métodos mais populares de geração de malhas e consiste em cria
 
 Pode ocorrer do algoritmo não conseguir mais gerar elementos para uma determinada fronteira, isso indica que o algoritmo falhou. O caso de falha ocorre quando todos os possíveis elementos a serem criados se sobrepõe um elemento já existente. Por isso a importância de verificar se um elemento criado não sobrepõe um elemento já existente. Os casos de falha geralmente acontecem em modelos tridimensionais.
 
-Para gerar os novos triângulo no interior do domínio é necessário criar novo pontos que não pertencem à entrada, em geral é utilizados os pontos de Steiner para isso.
+Para gerar os novos triângulo no interior do domínio é necessário criar novos pontos que não pertencem à entrada, em geral são utilizados os pontos de Steiner para isso.
 
-Enquanto houver arestas na fronteira um algoritmo nessa categoria irá proceder da seguinte forma no caso 2D (fig.~\ref{fig:imagem7}):
+Enquanto houver arestas na fronteira um algoritmo nessa categoria irá proceder da seguinte forma, no caso 2D (fig.~\ref{fig:imagem7}):
  
  \begin{enumerate}
 \item{ Remova uma aresta da fronteira, a aresta base (fig.~\ref{fig:imagem7}b)}
@@ -49,7 +49,7 @@ Porém, nem sempre todos os elementos gerados terão boa qualidade. Ao contrári
 
 \section{Delaunay}
 
-Essa é um técnica bastante conhecida na área de geração de malhas, a origem do nome vem do matemático russo Boris Delaunay. A entrada para esse problema é um conjunto de pontos, nesse caso não é utilizado os pontos de Steiner para formar os triângulos.
+Essa é um técnica bastante conhecida na área de geração de malhas, a origem do nome vem do matemático russo Boris Delaunay. A entrada para esse problema é um conjunto de pontos, nesse caso não são utilizados os pontos de Steiner para formar os triângulos.
 
 O critério de Delaunay para a formação dos triângulos é que não exista nenhum outro ponto dentro do círculo que passa pelos três pontos desse triângulo, esse critério pode ser chamado também de “esfera vazia” (o circuncírculo desse triângulo, Figura~\ref{fig:imagem8}). O critério de Delaunay em si não se constitui num método de geração de malhas, mas é uma forma de saber onde os pontos devem estar localizados no espaço.
 
