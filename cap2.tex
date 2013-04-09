@@ -10,8 +10,7 @@ Há ainda a preocupação com a distribuição das tarefas entre os processadore
 Nesse capítulo, irei mostrar o que se tem feito nos últimos anos nessa área de subdivisão de domínios, focando nas vantagens e desvantagens de cada técnica apresentada.
 
 
-%\section{Introdução}\label{cap2:intro}
-\section{Decomposição baseada no centro de densidade}
+\section{Decomposição baseada na distância/volume/centro de massa}
 
 Em \cite{bib:Pirzadeh09}, é descrita uma técnica baseada em Avanço de Fronteiras e Avanço de Camadas. Essa é uma técnica tridimensional mas pode ser adaptada para uma versão bidimensional.
 
@@ -29,8 +28,6 @@ Em seguida, são identificadas as faces que interceptam o plano de partição e 
  \end{figure}
  
  Como vantagens dessa técnica podemos citar que a utilização de avanço de camadas entre as partições faz com que a malha gerada seja praticamente idêntica a uma malha gerada sequencialmente, ou seja, não são gerados padrões entre as partições do domínio. Outra vantagem é que não é necessário nenhum pré-processamento para definir ou construir as partições.
-
-\section{Decomposição baseada na distância/volume/centro de massa}
  
 Em \cite{bib:Ivanov06}, foi desenvolvido um algoritmo baseado em Delaunay em que o posicionamento do plano de corte é definido pelo centro de massa e pela matriz de inércia. O plano de corte é um plano perpendicular a um eixo que segue uma das três definições:
 
@@ -55,7 +52,7 @@ Após ter o plano de corte definido, é feita uma suavização da seção de cor
 
 Uma solução parecida é a apresentada em \cite{bib:Lammer00}, em que o plano de corte é traçado da mesma maneira, porém em duas dimensões, ou seja, um eixo de corte. Este eixo é usado para dividir o domínio recursivamente. A partir do eixo, uma aresta é formada, e os valores nos seus pontos extremos são interpolados dos valores dados como entrada. Quando o número de subdomínios for igual ao número de processadores, uma malha de Delaunay é gerada em cada interior.
 
-\section{Decomposição baseada em \textit{octree}/\textit{quadtree}}
+\section{Decomposição baseada em \textit{octree}/\textit{quadtree}/\textit{kd-tree}}
 
 Em \cite{bib:deCougny99}, a entrada do algoritmo é o contorno de um objeto. Cada processador terá parte de uma \textit{octree} distribuída, que define planos de corte do domínio. A malha das células internas é gerada concorrentemente com \textit{templates}. A região entre o contorno e as células internas é preenchida por uma técnica de avanço de fronteira, onde são gerados os elementos internos a uma região delimitada pelos planos de corte. Por último é feita a conexão das malhas dos dois lados de cada plano e de suas intersecções.
 
@@ -72,6 +69,28 @@ Para evitar a criação de elementos ruins, é feita uma verificação no corte 
      \label{fig:imagem3}
  \end{figure}
 
+ 
+ Em \cite{bib:Lo12}, uma técnica bidimensional para uma triangulação de Delaunay por inserção de pontos é apresentada. Uma \textit{kd-tree} é utilizada para organizar os pontos da entrada em células, estas células são agrupadas em zonas e distribuídas entre os processadores. A vantagem de usar uma \textit{kd-tree} é que cada célula irá ter uma quantidade de pontos aproximadamente iguais e a busca espacial é facilitada na hora de fazer a inserção de pontos em uma região. A Figura~\ref{fig:imagem11} mostra a organização de um conjunto de pontos por partição regular e por \textit{kd-tree}.
+ 
+  \begin{figure}[htbp]
+     \centering
+     \includegraphics[width=0.9\textwidth]{imagem11}
+     \caption{Pontos organizados em células. À esquerda por partição regular e à direita por \textit{kd-tree} \cite{bib:Lo12}.}
+     \label{fig:imagem11}
+ \end{figure}
+ 
+ A quantidade de subdomínios criados vai de acordo com a quantidade de processadores disponíveis, ou seja, cada processador terá que ficar responsável por uma zona. A inserção dos pontos em cada zona é feita em paralelo, sendo totalmente independente das outras zonas, e a malha gerada em cada zona também será independente.
+ 
+ Os triângulos gerados nas bordas das zonas terão pontos de uma zona vizinha. Isso irá gerar uma camada a mais de triângulos nas zonas, isso é necessário para obter uma malha sem buracos entre as zonas. Ao final terá que ser feito a junção de todas as malhas geradas em uma só, para isso, é preciso eliminar as redundâncias, triângulos repetidos entre duas zonas. A Figura~\ref{fig:imagem12} mostra o fluxograma da triangulação em paralelo.
+ 
+   \begin{figure}[htbp]
+     \centering
+     \includegraphics[width=0.9\textwidth]{imagem12}
+     \caption{ Fluxograma da triangulação em paralelo \cite{bib:Lo12}.}
+     \label{fig:imagem12}
+ \end{figure}
+ 
+ 
 \section{Decomposição baseada no eixo mediano}
 
 O eixo mediano é uma maneira de descrever a forma de um objeto, e é utilizado para garantir uma decomposição de domínio com separadores que formam bons ângulos com as bordas.
@@ -87,7 +106,7 @@ Em \cite{bib:Leonidas06}, é apresentada uma técnica bidimensional que utiliza 
 
 Através do grafo formado, os planos de corte são posicionados e os subdomínios formados. A Figura~\ref{fig:imagem4} mostra o resultado de decomposições para quantidades diferentes de subdomínios. Após isso a geração da malha interna poderá ser realizada.
 
-\section{Decomposição baseada em \textit{bounding Box}}
+\section{Decomposição baseada em \textit{bounding box}}
 
 Em \cite{bib:Glut08}, é apresentada uma técnica para malhas tridimensionais. Essa é uma abordagem baseada na decomposição geométrica onde a entrada é uma malha de superfície. Aqui são apresentadas duas técnicas baseadas na \textit{bounding box} gerada a partir da entrada.
 
